@@ -3,9 +3,22 @@
    <head>
        <meta charset="UTF-8">
        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-       <title>2D GAME</title>
+       <title>SUDOKU GAME</title>
+        <link rel="stylesheet" href="styles.css">
    </head>
    <body>
-       <canvas id="myCanvas" width="800" height="600"></canvas>
+        <h1 id="title">Solve Sudoku</h1>
+        <div id="puzzle">
+            <canvas id="puzzleCanvas" width="1500" height="700"></canvas>
+        </div>
+        <h4 id="instruction">Rules To Play</h4>
+        <ul>
+            <li>Fill the 9x9 grid with numbers 1 to 9. Each row, column, and 3x3 box should have every number without repetition.</li>
+            <li>Each row must have numbers 1 to 9.</li>
+            <li>Each column must have numbers 1 to 9.</li>
+            <li>Each 3x3 box must have numbers 1 to 9.</li>
+
+        </ul>
+       <script src="../back-end/index.js"></script>
    </body>
 </html>

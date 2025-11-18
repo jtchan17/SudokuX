@@ -91,6 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //////////////////////////////////////////////////////////////////////////////////
     //                      INPUT
     //////////////////////////////////////////////////////////////////////////////////
+    //Build input for the grid
     function buildInput(){
         inputs.innerHTML = '';
         for(let row=0; row<numOfGrid; row++){
@@ -113,22 +114,22 @@ document.addEventListener('DOMContentLoaded', () => {
     function onKeyDown(e){
         // Block all number input from keyboard
         if(/[0-9]/.test(e.key)){
-        e.preventDefault();
-        return;
+            e.preventDefault();
+            return;
         }
         // allow navigation with arrow keys
         const input = e.target;
         const r = parseInt(input.dataset.r,10);
         const c = parseInt(input.dataset.c,10);
         if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key)){
-        e.preventDefault();
-        let nr=r,nc=c;
-        if(e.key==='ArrowLeft') nc=Math.max(0,c-1);
-        if(e.key==='ArrowRight') nc=Math.min(8,c+1);
-        if(e.key==='ArrowUp') nr=Math.max(0,r-1);
-        if(e.key==='ArrowDown') nr=Math.min(8,r+1);
-        const pos = nr*9+nc;
-        inputsWrap.children[pos].focus();
+            e.preventDefault();
+            let nr=r,nc=c;
+            if(e.key==='ArrowLeft') nc=Math.max(0,c-1);
+            if(e.key==='ArrowRight') nc=Math.min(8,c+1);
+            if(e.key==='ArrowUp') nr=Math.max(0,r-1);
+            if(e.key==='ArrowDown') nr=Math.min(8,r+1);
+            const pos = nr*9+nc;
+            inputs.children[pos].focus();
         }
     }
 
@@ -146,9 +147,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 if(board[row][col] === 0){
                     return [row, col];
                 }
-                return null;
+                
             }
         }
+        return null;
     }
 
     //Function to shuffle all the numbers in the board
@@ -221,12 +223,12 @@ document.addEventListener('DOMContentLoaded', () => {
             board.push(row);
         }
         solveBoard(board);
-
+        return board;
     }
 
     //Function to copy board
-    function copyBoard(board){ 
-        return board.map(r=>r.slice()); 
+    function copyBoard(b){ 
+        return b.map(r=>r.slice()); 
     }
 
     //Function to create puzzle by removing some numbers randomly
@@ -245,18 +247,18 @@ document.addEventListener('DOMContentLoaded', () => {
             if(removed >= totalToRemoved){
                 break;
             }
-            const backup = board[row][col];
-            board[row][col] = 0;
+            const backup = brd[row][col];
+            brd[row][col] = 0;
             removed++;
         }
-        return board;
+        return brd;
     }
 
     //Function to populate puzzle
     function populatePuzzle(board){
         for(let row=0; row<numOfGrid; row++){
             for(let col=0; col<numOfGrid; col++){
-                const inpt = inputs.children[r*9+c];
+                const inpt = inputs.children[row*9 + col];
                 const val = board[row][col];
 
                 inpt.classList.remove('given');
@@ -282,7 +284,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const b = Array.from({length:9},()=>Array(9).fill(0));
         for(let row=0; row<numOfGrid; row++){
             for(let col=0; col<numOfGrid; col++){
-                const v = inputs.children[r*9+c].value;
+                const v = inputs.children[row*9 + col].value;
                 b[row][col] = v? parseInt(v,10):0;
             }
         }
@@ -305,7 +307,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 if(val !== solution[row][col]){
                     allOk=false;
-                    inputs.children[r*9+c].classList.add('invalid');
+                    inputs.children[row*9 + col].classList.add('invalid');
                 }
             }
         }
@@ -319,8 +321,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //New Game button
     newGameBtn.addEventListener('click', ()=>{
-        startNewGame();
+        startGame();
     });
+
+    // Track which cell was focused before number pad button is pressed
+    inputs.addEventListener('blur', (e)=>{
+        if(e.target && e.target.dataset.r !== undefined){
+            lastFocusedCell = e.target;
+        }
+    }, true);
 
     //Check Button
     checkBtn.addEventListener('click', checkPuzzle);
@@ -340,7 +349,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.number-button').forEach(btn=>{
         btn.addEventListener('click', (e)=>{
         if(lastFocusedCell && lastFocusedCell.dataset.r !== undefined){
-            lastFocusedCell.value = e.target.dataset.num;
+            lastFocusedCell.value = e.target.dataset.number;
             lastFocusedCell.focus();
         }
         });

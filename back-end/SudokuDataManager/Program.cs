@@ -21,6 +21,35 @@ namespace SudokuDataManager{
                 Console.WriteLine("4. Exit");
                 Console.Write("Choose: ");
 
+                string userInput = "";
+                try
+                {
+                    userInput = Console.ReadLine();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error message: " + e);
+                }
+
+                switch (userInput)
+                {
+                    case "1": 
+                        PlayerMenu(); 
+                        break;
+
+                    case "2": 
+                        PuzzleMenu(); 
+                        break;
+
+                    case "4": 
+                        exit = true; 
+                        break;
+
+                    default: 
+                        Console.WriteLine("Invalid option.\n"); 
+                        break;
+                }
+
             }
         }
 
@@ -45,6 +74,7 @@ namespace SudokuDataManager{
             Console.WriteLine("4. Delete Puzzle");
             Console.WriteLine("5. Back");
             Console.Write("Choose: ");
+            Console.WriteLine();
         }
     }
 }

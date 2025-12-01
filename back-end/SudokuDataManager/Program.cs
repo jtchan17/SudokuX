@@ -26,9 +26,8 @@ namespace SudokuDataManager{
                 Console.WriteLine("2. Puzzle Management");
                 Console.WriteLine("3. Data Analysis");
                 Console.WriteLine("4. Exit");
-                Console.Write("Choose: ");
 
-                switch (Console.ReadLine())
+                switch (UserInput.ReadString("Choose: "))
                 {
                     case "1": PlayerMenu(); break;
                     case "2": PuzzleMenu(); break;
@@ -47,10 +46,8 @@ namespace SudokuDataManager{
             Console.WriteLine("3. Update Player");
             Console.WriteLine("4. Delete Player");
             Console.WriteLine("5. Back");
-            Console.Write("Choose: ");
-            Console.WriteLine();
 
-            switch (Console.ReadLine())
+            switch (UserInput.ReadString("Choose: "))
             {
                 case "1": PlayerCRUD.AddPlayer(); break;
                 case "2": PlayerCRUD.ViewPlayers(); break;
@@ -67,9 +64,8 @@ namespace SudokuDataManager{
             Console.WriteLine("3. View Puzzles");
             Console.WriteLine("4. Delete Puzzle");
             Console.WriteLine("5. Back");
-            Console.Write("Choose: ");
 
-            switch (Console.ReadLine())
+            switch (UserInput.ReadString("Choose: "))
             {
                 case "1": SudokuCRUD.AddPuzzle(); break;
                 case "2": SudokuCRUD.GenerateRandomPuzzle(); break;

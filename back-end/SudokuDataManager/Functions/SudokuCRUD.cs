@@ -20,6 +20,7 @@ namespace SudokuDataManager.Functions
             {
                 PuzzleId = Puzzles.Count + 1,
                 Difficulty = diff,
+                GridData = grid,
             });
 
             Console.WriteLine("Puzzle added.\n");
@@ -28,11 +29,12 @@ namespace SudokuDataManager.Functions
         public static void GenerateRandomPuzzle()
         {
             string[] difficulties = { "Easy", "Medium", "Hard" };
-
+            string grid = SudokuGenerator.GeneratePuzzle();
             var puzzle = new SudokuPuzzle
             {
                 PuzzleId = Puzzles.Count + 1,
                 Difficulty = difficulties[rand.Next(3)],
+                GridData = grid,
                 IsCompleted = rand.Next(2) == 1,
                 CompletionTime = TimeSpan.FromMinutes(rand.Next(5, 45))
             };

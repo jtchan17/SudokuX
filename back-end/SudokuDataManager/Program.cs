@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using SudokuDataManager.Model;
+using SudokuDataManager.Functions;
 
 namespace SudokuDataManager{
 
@@ -31,7 +32,7 @@ namespace SudokuDataManager{
                 {
                     case "1": PlayerMenu(); break;
                     case "2": PuzzleMenu(); break;
-                    case "3": AnalysisService.ShowStatistics(); break;
+                    case "3": Analysis.ShowStatistics(); break;
                     case "4": exit = true; break;
                     default: Console.WriteLine("Invalid option.\n"); break;
                 }
@@ -70,65 +71,11 @@ namespace SudokuDataManager{
 
             switch (Console.ReadLine())
             {
-                case "1": PuzzleCRUD.AddPuzzle(); break;
-                case "2": PuzzleCRUD.GenerateRandomPuzzle(); break;
-                case "3": PuzzleCRUD.ViewPuzzles(); break;
-                case "4": PuzzleCRUD.DeletePuzzle(); break;
+                case "1": SudokuCRUD.AddPuzzle(); break;
+                case "2": SudokuCRUD.GenerateRandomPuzzle(); break;
+                case "3": SudokuCRUD.ViewPuzzles(); break;
+                case "4": SudokuCRUD.DeletePuzzle(); break;
             }
-        }
-    }
-
-    // ============================
-    // ANALYSIS SERVICE (LINQ)
-    // ============================
-
-    public static class AnalysisService
-    {
-        public static void ShowStatistics()
-        {
-            Console.WriteLine("=== Game Statistics ===");
-
-            var completed = PuzzleCRUD.Puzzles.Where(p => p.IsCompleted);
-
-            Console.WriteLine($"Total Puzzles: {PuzzleCRUD.Puzzles.Count}");
-            Console.WriteLine($"Completed Puzzles: {completed.Count()}");
-
-            if (completed.Any())
-            {
-                double avg = completed.Average(p => p.CompletionTime.TotalMinutes);
-                Console.WriteLine($"Average Completion Time: {avg:F2} mins");
-            }
-
-            var byDifficulty = PuzzleCRUD.Puzzles
-                .GroupBy(p => p.Difficulty)
-                .Select(g => new { Difficulty = g.Key, Count = g.Count() });
-
-            Console.WriteLine("\nPuzzles by Difficulty:");
-            foreach (var item in byDifficulty)
-                Console.WriteLine($"{item.Difficulty}: {item.Count}");
-
-            Console.WriteLine();
-        }
-    }
-
-    // ============================
-    // PUZZLE GENERATOR (RANDOM 9x9)
-    // ============================
-
-    public static class PuzzleGenerator
-    {
-        public static string GeneratePuzzle()
-        {
-            Random r = new Random();
-            char[] grid = new char[81];
-
-            for (int i = 0; i < 81; i++)
-            {
-                int num = r.Next(0, 10);
-                grid[i] = num == 0 ? '.' : num.ToString()[0];
-            }
-
-            return new string(grid);
         }
     }
 }

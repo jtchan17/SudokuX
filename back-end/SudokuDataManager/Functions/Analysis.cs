@@ -11,9 +11,9 @@ namespace SudokuDataManager.Functions
         {
             Console.WriteLine("=== Game Statistics ===");
 
-            var completed = PuzzleCRUD.Puzzles.Where(p => p.IsCompleted);
+            var completed = SudokuCRUD.Puzzles.Where(p => p.IsCompleted);
 
-            Console.WriteLine($"Total Puzzles: {PuzzleCRUD.Puzzles.Count}");
+            Console.WriteLine($"Total Puzzles: {SudokuCRUD.Puzzles.Count}");
             Console.WriteLine($"Completed Puzzles: {completed.Count()}");
 
             if (completed.Any())
@@ -22,7 +22,7 @@ namespace SudokuDataManager.Functions
                 Console.WriteLine($"Average Completion Time: {avg:F2} mins");
             }
 
-            var byDifficulty = PuzzleCRUD.Puzzles
+            var byDifficulty = SudokuCRUD.Puzzles
                 .GroupBy(p => p.Difficulty)
                 .Select(g => new { Difficulty = g.Key, Count = g.Count() });
 

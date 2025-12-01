@@ -1,0 +1,66 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using SudokuDataManager.Model;
+
+namespace SudokuDataManager.Functions
+{
+    public class SudokuCRUD
+    {
+        public static List<IPuzzle> Puzzles = new List<IPuzzle>();
+        static Random rand = new Random();
+
+        public static void AddPuzzle()
+        {
+            string diff = UserInput.ReadString("Difficulty (Easy/Medium/Hard): ");
+            string grid = UserInput.ReadString("Enter puzzle grid (81 chars): ");
+
+            Puzzles.Add(new SudokuPuzzle
+            {
+                PuzzleId = Puzzles.Count + 1,
+                Difficulty = diff,
+            });
+
+            Console.WriteLine("Puzzle added.\n");
+        }
+
+        public static void GenerateRandomPuzzle()
+        {
+            string[] difficulties = { "Easy", "Medium", "Hard" };
+
+            var puzzle = new SudokuPuzzle
+            {
+                PuzzleId = Puzzles.Count + 1,
+                Difficulty = difficulties[rand.Next(3)],
+                IsCompleted = rand.Next(2) == 1,
+                CompletionTime = TimeSpan.FromMinutes(rand.Next(5, 45))
+            };
+
+            Puzzles.Add(puzzle);
+            Console.WriteLine("Random puzzle generated.\n");
+        }
+
+        public static void ViewPuzzles()
+        {
+            Console.WriteLine("=== Puzzle List ===");
+            foreach (var p in Puzzles)
+                p.PrintInfo();
+            Console.WriteLine();
+        }
+
+        public static SudokuPuzzle GetSudokuPuzzle(int id)
+        {
+            return Puzzles.Where(p => p is SudokuPuzzle).Cast<SudokuPuzzle>().FirstOrDefault(p => p.PuzzleId == id);
+        }
+
+        public static void DeletePuzzle()
+        {
+            ViewPuzzles();
+            int id = UserInput.ReadInt("Enter Puzzle ID: ");
+
+            Puzzles.RemoveAll(p => ((SudokuPuzzle)p).PuzzleId == id);
+            Console.WriteLine("Puzzle deleted.\n");
+        }
+    }
+}

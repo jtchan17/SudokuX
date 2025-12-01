@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SudokuDataManager
+namespace SudokuDataManager.Model
 {
     public class SudokuPuzzle : IPuzzle
     {

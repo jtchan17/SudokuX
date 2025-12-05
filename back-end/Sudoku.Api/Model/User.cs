@@ -1,15 +1,14 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace SudokuDataManager.Model
+namespace Sudoku.Api.Model
 {
-    public abstract class User : IUser
+    public class User
     {
         public int Id { get; set; }
         public string Username { get; set; }
-
-        public abstract void PrintInfo();
+        public string PasswordHash { get; set; }
+        // simple role support
+        public string Role { get; set; } = "User";
+        public ICollection<GameProgress> Games { get; set; } = new List<GameProgress>();
     }
 }

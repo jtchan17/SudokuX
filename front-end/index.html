@@ -28,9 +28,12 @@
             </label>
             <button id="new-game-button">New Game</button>
         </div>
-        <div id="puzzleBoard">
+        <div id="puzzleBoard" style="position: relative;">
             <canvas id="puzzleCanvas" width="540" height="540"></canvas>
             <div id="inputs" class="inputs-grid"></div>
+            <div id="startOverlay" style="position: absolute; top: 0; left: 0; width: 540px; height: 540px; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(8px); background: rgba(255,255,255,0.3); z-index: 10;">
+                <button id="startButton" style="padding: 20px 40px; font-size: 24px; font-weight: bold; background: #28a745; color: white; border: none; border-radius: 12px; cursor: pointer; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">START</button>
+            </div>
             <div id="completionBanner" style="display:none; margin-top:1em; padding:0.7em; background:#d4edda; color:#155724; border:1px solid #c3e6cb; border-radius:6px; font-weight:bold; text-align:center; font-size:1.2em;">🎉 Congratulations — puzzle complete! 🎉</div>
         </div>
         <br>
@@ -51,6 +54,7 @@
             <div class="timer">Time: <span id="timer">00:00</span></div>
             <br>
             <div id="functionButtons">
+                <button id="pause-button" style="background: #ffc107; color: #000; font-weight: bold;">Pause</button>
                 <button id="clear-button">Clear</button>
                 <button id="hint-button">Hint</button>
                 <button id="check-button">Check</button>
@@ -77,8 +81,8 @@
                     <th>Difficulty</th>
                     <th>🏆 Best Time</th>
                     <th>⏱️ Avg Time</th>
-                    <th>💡 Total Hints</th>
-                    <th>📈 Avg Hints</th>
+                    <th>💡 Total Hints Used</th>
+                    <th>📈 Avg Hints Used</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -106,7 +110,7 @@
                 </tbody>
             </table>
         </section>
-       <script src="../back-end/index.js"></script>
+       <script src="index.js?v=7"></script>
        <br>
        <footer>
         <p>Developed by Jia Tong</p>

@@ -10,6 +10,7 @@ namespace Sudoku.Api.DTO
         public string? Marks { get; set; }
         public bool IsCompleted { get; set; }
         public System.DateTime? LastPlayedAt { get; set; }
+        public int HintsUsed { get; set; }
     }
 
     public class GameDto : GameCreateDto

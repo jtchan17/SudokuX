@@ -30,5 +30,8 @@ namespace Sudoku.Api.Model
 
         // Optional name/description
         public string? Name { get; set; }
+
+        // Number of hints used
+        public int HintsUsed { get; set; }
     }
 }

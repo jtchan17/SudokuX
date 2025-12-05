@@ -8,6 +8,16 @@
    </head>
    <body>
         <h1 id="title">Solve Sudoku</h1>
+        <div class="server-controls">
+                <div class="auth">
+                    <input id="username" placeholder="username" />
+                    <input id="password" type="password" placeholder="password" />
+                    <button id="registerBtn">Register</button>
+                    <button id="loginBtn">Login</button>
+                    <button id="logoutBtn">Logout</button>
+                    <span id="authStatus" class="muted">Not logged in</span>
+                </div>
+            </div>
         <div>
             <label>Difficulty: 
                 <select id="difficulty">
@@ -21,6 +31,7 @@
         <div id="puzzleBoard">
             <canvas id="puzzleCanvas" width="540" height="540"></canvas>
             <div id="inputs" class="inputs-grid"></div>
+            <div id="completionBanner" style="display:none; margin-top:1em; padding:0.7em; background:#d4edda; color:#155724; border:1px solid #c3e6cb; border-radius:6px; font-weight:bold; text-align:center; font-size:1.2em;">🎉 Congratulations — puzzle complete! 🎉</div>
         </div>
         <br>
         <div class="numbers">
@@ -56,6 +67,45 @@
                 <li>Each 3x3 box must have numbers 1 to 9.</li>
             </ul>
         </div>
+
+        <section class="dashboard">
+        <h2>📊 Performance Dashboard</h2>
+            <p class="dashboard-subtitle">Track your progress and mastery across difficulty levels</p>
+            <table class="stats-table">
+                <thead>
+                <tr>
+                    <th>Difficulty</th>
+                    <th>🏆 Best Time</th>
+                    <th>⏱️ Avg Time</th>
+                    <th>💡 Total Hints</th>
+                    <th>📈 Avg Hints</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr data-diff="easy" class="diff-easy">
+                    <td class="diff-label"><span class="diff-badge easy">Easy</span></td>
+                    <td class="best" data-field="best">–</td>
+                    <td class="avg" data-field="avg">–</td>
+                    <td class="total-hints" data-field="totalHints">–</td>
+                    <td class="avg-hints" data-field="avgHints">–</td>
+                </tr>
+                <tr data-diff="medium" class="diff-medium">
+                    <td class="diff-label"><span class="diff-badge medium">Medium</span></td>
+                    <td class="best" data-field="best">–</td>
+                    <td class="avg" data-field="avg">–</td>
+                    <td class="total-hints" data-field="totalHints">–</td>
+                    <td class="avg-hints" data-field="avgHints">–</td>
+                </tr>
+                <tr data-diff="hard" class="diff-hard">
+                    <td class="diff-label"><span class="diff-badge hard">Hard</span></td>
+                    <td class="best" data-field="best">–</td>
+                    <td class="avg" data-field="avg">–</td>
+                    <td class="total-hints" data-field="totalHints">–</td>
+                    <td class="avg-hints" data-field="avgHints">–</td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
        <script src="../back-end/index.js"></script>
        <br>
        <footer>
